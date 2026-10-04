@@ -1,17 +1,817 @@
 ---
+const researchAreas = [
+  {
+    number: "01",
+    title: "Cognitive Science",
+    description: "Exploring the relationship between mind, computation, and cognition.",
+    symbol: "↗",
+  },
+  {
+    number: "02",
+    title: "Mathematics",
+    description: "Building mathematical foundations for understanding computation and models.",
+    symbol: "∑",
+  },
+  {
+    number: "03",
+    title: "Psychology",
+    description: "Studying human behavior, perception, and the mechanisms behind thought.",
+    symbol: "◌",
+  },
+];
 
+const projects = [
+  {
+    number: "01",
+    title: "Nothing here yet.",
+    description: "前面的区域以后再来探索吧",
+    meta: "2026 · Exploring",
+    symbol: "＋",
+  },
+];
+
+const notes = [
+  {
+    date: "2026.10",
+    title: "Notes will appear here.",
+    type: "Thinking",
+  },
+  {
+    date: "—",
+    title: "More observations, questions, and ideas.",
+    type: "Archive",
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Mascott / 彭子懿 — Computer Science student and researcher in progress."
+    />
+    <title>Mascott — 彭子懿</title>
+  </head>
+
+  <body>
+    <div class="page">
+
+      <!-- Left column -->
+      <aside class="sidebar">
+
+        <div class="identity">
+          <div class="portrait">M</div>
+
+          <div>
+            <h1>彭子懿</h1>
+            <p class="english-name">Mascott</p >
+          </div>
+        </div>
+
+        <div class="bio">
+          <p>Computer Science</p >
+          <p>Tianjin University × PolyU</p >
+          <p>Shenzhen, China</p >
+          <p>First-year student</p >
+        </div>
+
+        <nav>
+          <a href=" ">Research</a >
+          <a href="#projects">Projects</a >
+          <a href="#notes">Notes</a >
+          <a href="#archive">Archive</a >
+        </nav>
+
+        <div class="sidebar-bottom">
+          <a href="https://github.com/MascoTxTs" target="_blank">
+            GitHub ↗
+          </a >
+          <a href="mailto:your-email@example.com">
+            Email ↗
+          </a >
+        </div>
+
+      </aside>
+
+
+      <!-- Main content -->
+      <main class="content">
+
+        <!-- Intro -->
+        <section class="intro">
+          <p class="eyebrow">RESEARCH / COMPUTATION / MIND</p >
+
+          <h2>
+            A personal archive of
+            <span>questions, research, and things built along the way.</span>
+          </h2>
+
+          <p class="intro-text">
+            I am a first-year Computer Science student interested in
+            Cognitive Science, Mathematics, and Psychology.
+            This site records what I study, build, and investigate.
+          </p >
+        </section>
+
+
+        <!-- Research -->
+        <section id="research" class="section">
+
+          <div class="section-heading">
+            <span>01</span>
+            <h3>Research</h3>
+          </div>
+
+          <div class="research-list">
+            {researchAreas.map((area) => (
+              <article class="research-item">
+
+                <div class="research-number">
+                  {area.number}
+                </div>
+
+                <div class="research-main">
+                  <h4>{area.title}</h4>
+                  <p>{area.description}</p >
+                </div>
+
+                <div class="research-symbol">
+                  {area.symbol}
+                </div>
+
+              </article>
+            ))}
+          </div>
+
+        </section>
+
+
+        <!-- Projects -->
+        <section id="projects" class="section">
+
+          <div class="section-heading">
+            <span>02</span>
+            <h3>Selected Work</h3>
+          </div>
+
+          <div class="project-list">
+
+            {projects.map((project) => (
+              <article class="project">
+
+                <div class="project-info">
+                  <p class="project-number">{project.number}</p >
+
+                  <h4>{project.title}</h4>
+
+                  <p class="project-description">
+                    {project.description}
+                  </p >
+
+                  <p class="project-meta">
+                    {project.meta}
+                  </p >
+                </div>
+
+                <div class="project-visual">
+                  <span>{project.symbol}</span>
+                </div>
+
+              </article>
+            ))}
+
+          </div>
+
+        </section>
+
+
+        <!-- Notes -->
+        <section id="notes" class="section">
+
+          <div class="section-heading">
+            <span>03</span>
+            <h3>Notes</h3>
+          </div>
+
+          <div class="notes-list">
+
+            {notes.map((note) => (
+              <a href="#" class="note">
+
+                <span class="note-date">
+                  {note.date}
+                </span>
+
+                <span class="note-title">
+                  {note.title}
+                </span>
+
+                <span class="note-type">
+                  {note.type}
+                </span>
+
+                <span class="note-arrow">
+                  →
+                </span>
+
+              </a >
+            ))}
+
+          </div>
+
+        </section>
+
+
+        <!-- Archive -->
+        <section id="archive" class="section archive">
+
+          <div class="section-heading">
+            <span>04</span>
+            <h3>Archive</h3>
+          </div>
+
+          <div class="archive-content">
+
+            <div>
+              <p class="archive-big">2026—</p >
+              <p class="archive-label">
+                Building from the beginning.
+              </p >
+            </div>
+
+            <p>
+              This website will gradually become a record of four years
+              of study, experiments, projects, questions, and research.
+            </p >
+
+          </div>
+
+        </section>
+
+
+        <footer>
+          <span>© 2026 Mascott</span>
+          <span>Built while learning.</span>
+        </footer>
+
+      </main>
+
+    </div>
+  </body>
 </html>
+
+
+<style>
+
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: #f2f2f0;
+    color: #171717;
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Helvetica,
+      Arial,
+      sans-serif;
+  }
+
+  :global(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+
+  .page {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 860px);
+    gap: 72px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 54px 48px 80px;
+  }
+
+
+  /* =========================
+     SIDEBAR
+     ========================= */
+
+  .sidebar {
+    position: sticky;
+    top: 54px;
+
+    height: calc(100vh - 108px);
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .identity {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .portrait {
+    width: 44px;
+    height:44px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid #c9c9c5;
+    background: #e8e8e5;
+
+    font-family: Georgia, serif;
+    font-size: 22px;
+  }
+
+  .identity h1 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  .english-name {
+    margin: 3px 0 0;
+    color: #777;
+    font-size: 13px;
+  }
+
+
+  .bio {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #d5d5d1;
+  }
+
+  .bio p {
+    margin: 6px 0;
+    color: #666;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-top: 46px;
+  }
+
+  nav a {
+    width: fit-content;
+
+    color: #666;
+    font-size: 13px;
+
+    transition:
+      color 160ms ease,
+      transform 160ms ease;
+  }
+
+  nav a:hover {
+    color: #111;
+    transform: translateX(4px);
+  }
+
+
+  .sidebar-bottom {
+    display: flex;
+    gap: 16px;
+
+    margin-top: auto;
+    padding-top: 24px;
+
+    border-top: 1px solid #d5d5d1;
+  }
+
+  .sidebar-bottom a {
+    color: #777;
+    font-size: 12px;
+  }
+
+  .sidebar-bottom a:hover {
+    color: #2463eb;
+  }
+
+
+  /* =========================
+     CONTENT
+     ========================= */
+
+  .content {
+    min-width: 0;
+  }
+
+
+  .intro {
+    padding-bottom: 72px;
+  }
+
+  .eyebrow {
+    margin: 0 0 24px;
+
+    color: #777;
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .intro h2 {
+    max-width: 730px;
+
+    margin: 0;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(36px, 4.2vw, 56px);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.045em;
+  }
+
+  .intro h2 span {
+    color: #777;
+  }
+
+  .intro-text {
+    max-width: 570px;
+
+    margin: 30px 0 0;
+
+    color: #666;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+
+  /* =========================
+     SECTIONS
+     ========================= */
+
+  .section {
+    padding: 54px 0;
+    border-top: 1px solid #d1d1cd;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+
+    margin-bottom: 28px;
+  }
+
+  .section-heading span {
+    color: #999;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  .section-heading h3 {
+    margin: 0;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+
+  /* =========================
+     RESEARCH
+     ========================= */
+
+  .research-list {
+    border-top: 1px solid #d1d1cd;
+  }
+
+  .research-item {
+    display: grid;
+    grid-template-columns: 46px 1fr 48px;
+    align-items: center;
+    gap: 20px;
+
+    min-height: 108px;
+
+    border-bottom: 1px solid #d1d1cd;
+
+    transition: padding 180ms ease;
+  }
+
+  .research-item:hover {
+    padding-left: 6px;
+  }
+
+  .research-number {
+    color: #999;
+    font-family: monospace;
+    font-size: 11px;
+  }
+
+  .research-main h4 {
+    margin: 0;
+
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .research-main p {
+    max-width: 540px;
+
+    margin: 8px 0 0;
+
+    color: #777;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .research-symbol {
+    color: #999;
+    font-family: Georgia, serif;
+    font-size: 22px;
+    text-align: right;
+  }
+
+
+  /* =========================
+     PROJECTS
+     ========================= */
+
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    min-height: 170px;
+
+    border: 1px solid #d0d0cc;
+    background: #e9e9e6;
+
+    transition:
+      transform 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .project:hover {
+    transform: translateY(-2px);
+    border-color: #aaa;
+  }
+
+  .project-info {
+    padding: 25px 28px;
+  }
+
+  .project-number {
+    margin: 0 0 22px;
+
+    color: #999;
+    font-family: monospace;
+    font-size: 10px;
+  }
+
+  .project h4 {
+    margin: 0;
+
+    font-family: Georgia, serif;
+    font-size: 22px;
+    font-weight: 400;
+  }
+
+  .project-description {
+    margin: 9px 0 0;
+
+    color: #666;
+    font-size: 13px;
+  }
+
+  .project-meta {
+    margin: 24px 0 0;
+
+    color: #999;
+    font-family: monospace;
+    font-size: 10px;
+  }
+
+  .project-visual {
+    display: grid;
+    place-items: center;
+
+    border-left: 1px solid #d0d0cc;
+
+    background: #dededb;
+  }
+
+  .project-visual span {
+    color: #777;
+    font-size: 30px;
+    font-weight: 200;
+  }
+
+
+  /* =========================
+     NOTES
+     ========================= */
+
+  .notes-list {
+    border-top: 1px solid #d1d1cd;
+  }
+
+  .note {
+    display: grid;
+    grid-template-columns: 90px 1fr 100px 20px;
+    gap: 16px;
+    align-items: center;
+
+    min-height: 58px;
+
+    border-bottom: 1px solid #d1d1cd;
+
+    color: #555;
+    font-size: 13px;
+
+    transition:
+      padding 160ms ease,
+      color 160ms ease;
+  }
+
+  .note:hover {
+    padding-left: 5px;
+    color: #111;
+  }
+
+  .note-date,
+  .note-type {
+    color: #999;
+    font-family: monospace;
+    font-size: 10px;
+  }
+
+  .note-arrow {
+    color: #aaa;
+    text-align: right;
+  }
+
+
+  /* =========================
+     ARCHIVE
+     ========================= */
+
+  .archive-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .archive-big {
+    margin: 0;
+
+    font-family: Georgia, serif;
+    font-size: 42px;
+    letter-spacing: -0.04em;
+  }
+
+  .archive-label {
+    margin: 8px 0 0;
+
+    color: #777;
+    font-size: 12px;
+  }
+
+  .archive-content > p {
+    max-width: 320px;
+
+    margin: 0;
+
+    color: #666;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+
+  /* =========================
+     FOOTER
+     ========================= */
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+
+    padding-top: 30px;
+
+    color: #999;
+    font-family: monospace;
+    font-size: 10px;
+  }
+
+
+  /* =========================
+     MOBILE
+     ========================= */
+
+  @media (max-width: 850px) {
+
+    .page {
+      display: block;
+      padding: 28px 22px 60px;
+    }
+
+    .sidebar {
+      position: static;
+      height: auto;
+    }
+
+    nav {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 18px;
+
+      margin-top: 30px;
+    }
+
+    .sidebar-bottom {
+      margin-top: 28px;
+    }
+
+    .intro {
+      padding-top: 70px;
+      padding-bottom: 55px;
+    }
+
+    .intro h2 {
+      font-size: 40px;
+    }
+
+    .project {
+      grid-template-columns: 1fr 100px;
+    }
+
+    .note {
+      grid-template-columns: 70px 1fr 20px;
+    }
+
+    .note-type {
+      display: none;
+    }
+
+    .archive-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+
+  @media (max-width: 520px) {
+
+    .research-item {
+      grid-template-columns: 35px 1fr 30px;
+      gap: 10px;
+    }
+
+    .research-main h4 {
+      font-size: 17px;
+    }
+
+    .research-main p {
+      font-size: 12px;
+    }
+
+    .project {
+      grid-template-columns: 1fr 75px;
+    }
+
+    .project-info {
+      padding: 20px;
+    }
+
+    .project-visual {
+      min-height: 140px;
+    }
+
+    footer {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+</style>
