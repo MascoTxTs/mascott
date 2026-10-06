@@ -1,6 +1,4 @@
 ---
-import { supabase } from "../lib/supabase";
-
 const title = "Feedback — Mascott";
 ---
 
@@ -10,99 +8,135 @@ const title = "Feedback — Mascott";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+
     <meta
       name="description"
       content="Feedback for Mascott's personal research archive."
     />
+
     <link rel="icon" type="image/svg+xml" href="/cat.svg" />
   </head>
 
   <body>
     <main class="feedback-page">
-      <a class="back" href="/#archive">← Back to archive</a >
 
-      <header>
+      <!-- Feedback form state -->
+      <section id="feedback-form-section">
+
+        <a class="back" href=" ">
+          ← Back to home
+        </a >
+
+        <header>
+          <p class="eyebrow">FEEDBACK</p >
+
+          <h1>
+            Something worth improving?
+          </h1>
+
+          <p class="intro">
+            This website is a four-year archive in progress.
+            If you notice something confusing, broken, or worth changing,
+            I'd like to hear about it.
+          </p >
+        </header>
+
+        <form id="feedback-form">
+
+          <label>
+            Nickname
+            <input
+              type="text"
+              name="nickname"
+              placeholder="Optional"
+            />
+          </label>
+
+          <label>
+            Page or section
+            <select name="section">
+              <option value="">Select one</option>
+              <option value="home">Homepage</option>
+              <option value="research">Research</option>
+              <option value="projects">Projects</option>
+              <option value="notes">Notes</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+
+          <label>
+            Device / platform
+            <input
+              type="text"
+              name="device"
+              placeholder="e.g. iPhone / Windows / Mac"
+            />
+          </label>
+
+          <label>
+            Feedback
+            <textarea
+              name="message"
+              rows="7"
+              placeholder="What should I improve?"
+              required
+            ></textarea>
+          </label>
+
+          <button type="submit" id="submit-button">
+            Send feedback
+          </button>
+
+        </form>
+
+        <p class="note">
+          Your feedback will help shape future versions of this archive.
+        </p >
+
+      </section>
+
+
+      <!-- Success state -->
+      <section
+        id="feedback-success"
+        class="feedback-success"
+        hidden
+      >
+
         <p class="eyebrow">FEEDBACK</p >
 
+        <div class="success-symbol">✓</div>
+
         <h1>
-          Something worth improving?
+          Feedback received.
         </h1>
 
-        <p class="intro">
-          This website is a four-year archive in progress.
-          If you notice something confusing, broken, or worth changing,
-          I'd like to hear about it.
+        <p class="success-message">
+          Thanks for taking the time to help improve this archive.
         </p >
-      </header>
 
-<form id="feedback-form">
+        <div class="success-actions">
 
-  <label>
-    Nickname
-    <input
-      type="text"
-      name="nickname"
-      placeholder="Optional"
-    />
-  </label>
+          <a href="/" class="success-back">
+            ← Back to home
+          </a >
 
-  <label>
-    Page or section
-    <select name="section">
-      <option value="">Select one</option>
-      <option value="home">Homepage</option>
-      <option value="research">Research</option>
-      <option value="projects">Projects</option>
-      <option value="notes">Notes</option>
-      <option value="other">Other</option>
-    </select>
-  </label>
+          <button
+            type="button"
+            id="write-again"
+            class="write-again"
+          >
+            Write another →
+          </button>
 
-  <label>
-    Device / platform
-    <input
-      type="text"
-      name="device"
-      placeholder="e.g. iPhone / Windows / Mac"
-    />
-  </label>
+        </div>
 
-  <label>
-    Feedback
-    <textarea
-      name="message"
-      rows="7"
-      placeholder="What should I improve?"
-      required
-    ></textarea>
-  </label>
+      </section>
 
-  <button type="submit">
-    Send feedback
-  </button>
-
-</form>
-
-<div id="feedback-success" class="feedback-success" hidden>
-  <div class="success-symbol">✓</div>
-
-  <h2>Feedback received.</h2>
-
-  <p>
-    Thanks for taking the time to help improve this archive.
-  </p >
-
-  <a href="/#archive" class="success-back">
-    ← Back to archive
-  </a >
-</div>
-
-      <p class="note">
-        Your feedback will help shape future versions of this archive.
-      </p >
     </main>
   </body>
 </html>
+
 
 <style>
   :global(*) {
@@ -211,13 +245,75 @@ const title = "Feedback — Mascott";
     border-color: #315E8C;
   }
 
+  button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
   .note {
     margin-top: 2rem;
     color: #888;
     font-size: 0.8rem;
   }
 
+
+  /* Success state */
+
+  .feedback-success {
+    padding-top: 8rem;
+  }
+
+  .success-symbol {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    color: #315E8C;
+    font-size: 1.2rem;
+  }
+
+  .feedback-success h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+  }
+
+  .success-message {
+    max-width: 580px;
+    margin-top: 1.5rem;
+    color: #666;
+    line-height: 1.8;
+  }
+
+  .success-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .success-back,
+  .write-again {
+    color: #315E8C;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .write-again {
+    border: 0;
+    background: none;
+    padding: 0;
+    color: #315E8C;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .write-again:hover {
+    border: 0;
+    background: none;
+    color: #181818;
+  }
+
+
   @media (max-width: 760px) {
+
     .feedback-page {
       width: min(100% - 2rem, 720px);
       padding-top: 2rem;
@@ -226,63 +322,53 @@ const title = "Feedback — Mascott";
     header {
       margin-top: 4rem;
     }
+
+    .feedback-success {
+      padding-top: 5rem;
+    }
+
+    .success-actions {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
-
-.feedback-success {
-  border-top: 1px solid #d2d2cf;
-  border-bottom: 1px solid #d2d2cf;
-  padding: 2rem 0;
-}
-
-.success-symbol {
-  color: #315E8C;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.feedback-success h2 {
-  margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1.8rem;
-  font-weight: 400;
-}
-
-.feedback-success p {
-  color: #666;
-  line-height: 1.7;
-  margin: 0.8rem 0 1.5rem;
-}
-
-.success-back {
-  color: #315E8C;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-
 </style>
+
 
 <script>
   import { supabase } from "../lib/supabase";
 
+  const formSection = document.querySelector("#feedback-form-section");
   const form = document.querySelector("#feedback-form");
   const success = document.querySelector("#feedback-success");
+  const button = document.querySelector("#submit-button");
+  const writeAgain = document.querySelector("#write-again");
 
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
 
-    const nickname = String(formData.get("nickname") || "").trim();
-    const section = String(formData.get("section") || "").trim();
-    const device = String(formData.get("device") || "").trim();
-    const message = String(formData.get("message") || "").trim();
+    const nickname = String(
+      formData.get("nickname") || ""
+    ).trim();
+
+    const section = String(
+      formData.get("section") || ""
+    ).trim();
+
+    const device = String(
+      formData.get("device") || ""
+    ).trim();
+
+    const message = String(
+      formData.get("message") || ""
+    ).trim();
 
     if (!message) {
       return;
     }
-
-    const button = form.querySelector("button");
 
     if (button) {
       button.disabled = true;
@@ -312,10 +398,39 @@ const title = "Feedback — Mascott";
       return;
     }
 
-    form.hidden = true;
+    // Hide the entire form.
+    if (formSection) {
+      formSection.hidden = true;
+    }
 
+    // Show the success state.
     if (success) {
       success.hidden = false;
     }
+  });
+
+
+  // Write another feedback.
+  writeAgain?.addEventListener("click", () => {
+
+    form?.reset();
+
+    if (button) {
+      button.disabled = false;
+      button.textContent = "Send feedback";
+    }
+
+    if (success) {
+      success.hidden = true;
+    }
+
+    if (formSection) {
+      formSection.hidden = false;
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   });
 </script>
