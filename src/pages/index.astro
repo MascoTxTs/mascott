@@ -1,518 +1,413 @@
 ---
+import { getCollection } from "astro:content";
 
 const research = [
-
   {
-
     symbol: "⌁",
-
     title: "Brain-Computer Interfaces",
-
-    description: "Neural signals, brain–computer interaction, computational approaches"
-
+    description:
+      "Neural signals, brain–computer interaction, computational approaches",
   },
-
   {
-
     symbol: "λ",
-
     title: "Computer Science",
-
-    description: "Algorithms, systems, programming, artificial intelligence"
-
+    description:
+      "Algorithms, systems, programming, artificial intelligence",
   },
-
   {
-
     symbol: "∑",
-
     title: "Mathematics",
-
-    description: "Structures, abstraction, reasoning, mathematical foundations"
-
+    description:
+      "Structures, abstraction, reasoning, mathematical foundations",
   },
-
   {
-
     symbol: "◌",
-
     title: "Psychology",
-
-    description: "Mind, cognition, behavior, human intelligence"
-
-  }
-
-];
-
-const notes = [
-
-  {
-
-    date: "2026",
-
-    title: "Why I am interested in Brain-Computer Interfaces",
-
-    type: "Research note"
-
+    description:
+      "Mind, cognition, behavior, human intelligence",
   },
-
-  {
-
-    date: "2026",
-
-    title: "Thoughts on learning Computer Science from first principles",
-
-    type: "Learning note"
-
-  }
-
 ];
 
----
+const notes = await getCollection("notes");
 
+notes.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+console.log("HOME NOTES:", notes);
+---
 <!doctype html>
 
 <html lang="en">
 
-  <head>
+<head>
+  <meta charset="UTF-8" />
 
-    <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width"
+  />
 
-    <meta name="viewport" content="width=device-width" />
+  <meta
+    name="description"
+    content="Mascott — Computer Science student and personal research archive."
+  />
 
-    <meta name="description" content="Mascott — Computer Science student and personal research archive." />
+  <title>Mascott — Computer Science</title>
 
-    <title>Mascott — Computer Science</title>
+  <link
+    rel="icon"
+    type="image/svg+xml"
+    href="/cat.svg"
+  />
+</head>
 
-	<link rel="icon" type="image/svg+xml" href="/cat.svg" />
+<body>
+  <main class="page">
 
-  </head>
+    <!-- LEFT -->
 
-  <body>
+    <aside class="sidebar">
 
-    <main class="page">
+      <div class="identity">
+        <div class="portrait">M</div>
 
-      <!-- LEFT -->
-
-      <aside class="sidebar">
-
-        <div class="identity">
-
-          <div class="portrait">M</div>
-
-          <div>
-
-            <h1>彭子懿</h1>
-
-            <p class="name-en">Mascott</p >
-
-          </div>
-
+        <div>
+          <h1>彭子懿</h1>
+          <p class="name-en">Mascott</p >
         </div>
+      </div>
 
-        <div class="bio">
+      <div class="bio">
+        <p>Computer Science</p >
+        <p>Tianjin University × PolyU</p >
+        <p>Shenzhen</p >
+        <p>First-year student</p >
+      </div>
 
-          <p>Computer Science</p >
+      <div class="sidebar-divider"></div>
 
-          <p>Tianjin University × PolyU</p >
+      <nav class="nav">
+        <a href=" ">Research</a >
+        <a href="#projects">Projects</a >
+        <a href="#notes">Notes</a >
+        <a href="#archive">Archive</a >
+      </nav>
 
-          <p>Shenzhen</p >
+      <div class="sidebar-divider"></div>
 
-          <p>First-year student</p >
+      <div class="links">
+        <a
+          href="https://github.com/MascoTxTs"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub ↗
+        </a >
 
-        </div>
+        <a href="mailto:mascotxt@outlook.com">
+          Email ↗
+        </a >
+      </div>
 
-        <div class="sidebar-divider"></div>
+      <div class="side-mark">M/</div>
 
-        <nav class="nav">
+    </aside>
 
-          <a href="#research">Research</a >
 
-          <a href="#projects">Projects</a >
+    <!-- RIGHT -->
 
-          <a href="#notes">Notes</a >
+    <section class="content">
 
-          <a href="#archive">Archive</a >
+      <!-- INTRO -->
 
-        </nav>
+      <header class="intro">
+        <div class="section-mark">§</div>
 
-        <div class="sidebar-divider"></div>
+        <div>
+          <p class="eyebrow">PERSONAL RESEARCH ARCHIVE</p >
 
-        <div class="links">
+          <h2>
+            Questions worth exploring.<br />
+            Things worth building.
+          </h2>
 
-          <a href="https://github.com/MascoTxTs" target="_blank" rel="noreferrer">
-
-            GitHub ↗
-
-          </a >
-
-          <a href="mailto:mascotxt@outlook.com">
-
-            Email ↗
-
-          </a >
-
-        </div>
-
-        <div class="side-mark">M/</div>
-
-      </aside>
-
-      <!-- RIGHT -->
-
-      <section class="content">
-
-        <!-- INTRO -->
-
-        <header class="intro">
-
-          <div class="section-mark">§</div>
-
-          <div>
-
-            <p class="eyebrow">PERSONAL RESEARCH ARCHIVE</p >
-
-            <h2>
-
-              Questions worth exploring.<br />
-
-              Things worth building.
-
-            </h2>
-
-            <p class="intro-text">
-
-              A growing archive of research interests, experiments,
-
-              notes, and things I build along the way.
-
-            </p >
-
-          </div>
-
-        </header>
-
-        <!-- RESEARCH -->
-
-        <section id="research" class="section">
-
-          <div class="section-heading">
-
-            <span>01</span>
-
-            <h3>Research</h3>
-
-          </div>
-
-          <div class="research-list">
-
-            {research.map((item) => (
-
-              <article class="research-item">
-
-                <div class="research-symbol">
-
-                  {item.symbol}
-
-                </div>
-
-                <div class="research-main">
-
-                  <h4>{item.title}</h4>
-
-                  <p>{item.description}</p >
-
-                </div>
-
-                <div class="research-arrow">
-
-                  ↗
-
-                </div>
-
-              </article>
-
-            ))}
-
-          </div>
-
-        </section>
-
-        <!-- PROJECTS / ACTIVITY -->
-
-        <section id="projects" class="section">
-
-          <div class="section-heading">
-
-            <span>02</span>
-
-            <h3>Projects / Activity</h3>
-
-          </div>
-
-          <div class="activity">
-
-            <div class="activity-year">
-
-              2026
-
-            </div>
-
-            <article class="activity-item">
-
-              <div class="activity-date">
-
-                <span>Oct</span>
-
-                <strong>05</strong>
-
-              </div>
-
-              <div class="activity-line">
-
-                <span></span>
-
-              </div>
-
-              <div class="activity-body">
-
-                <div class="activity-top">
-
-                  <div>
-
-                    <p class="activity-type">Research</p >
-
-                    <h4>
-
-                      Started exploring
-
-                      <span>Brain-Computer Interfaces</span>
-
-                    </h4>
-
-                  </div>
-
-                  <div class="activity-icon">
-
-                    ⌁
-
-                  </div>
-
-                </div>
-
-                <p class="activity-description">
-
-                  Beginning to investigate neural signals,
-
-                  EEG, computational models, and the relationship
-
-                  between biological and artificial intelligence.
-
-                </p >
-
-                <div class="activity-links">
-
-                  <a href="#notes">Notes ↗</a >
-
-                  <span>·</span>
-
-                  <a href="#research">Research ↗</a >
-
-                </div>
-
-              </div>
-
-            </article>
-
-            <article class="activity-item placeholder">
-
-              <div class="activity-date">
-
-                <span>soon</span>
-
-              </div>
-
-              <div class="activity-line">
-
-                <span></span>
-
-              </div>
-
-              <div class="activity-body">
-
-                <div class="activity-top">
-
-                  <div>
-
-                    <p class="activity-type">Project</p >
-
-                    <h4>
-
-                      Nothing here yet.
-
-                    </h4>
-
-                  </div>
-
-                  <div class="activity-icon muted">
-
-                    +
-
-                  </div>
-
-                </div>
-
-                <p class="activity-description">
-
-                  This section will gradually become a record
-
-                  of things I actually build, investigate, and publish.
-
-                </p >
-
-              </div>
-
-            </article>
-
-          </div>
-
-        </section>
-
-        <!-- NOTES -->
-
-        <section id="notes" class="section">
-
-          <div class="section-heading">
-
-            <span>03</span>
-
-            <h3>Notes</h3>
-
-          </div>
-
-          <div class="notes-list">
-
-            {notes.map((note) => (
-
-              <a href="#" class="note-item">
-
-                <div class="note-date">
-
-                  {note.date}
-
-                </div>
-
-                <div class="note-content">
-
-                  <h4>{note.title}</h4>
-
-                  <p>{note.type}</p >
-
-                </div>
-
-                <div class="note-arrow">
-
-                  ↗
-
-                </div>
-
-              </a >
-
-            ))}
-
-          </div>
-
-          <p class="notes-foot">
-
-            Written irregularly. Mostly questions, ideas,
-
-            observations, and things worth remembering.
-
+          <p class="intro-text">
+            A growing archive of research interests, experiments,
+            notes, and things I build along the way.
           </p >
+        </div>
+      </header>
 
-        </section>
 
-        <!-- ARCHIVE -->
+      <!-- RESEARCH -->
 
-        <section id="archive" class="section archive-section">
+      <section id="research" class="section">
 
-          <div class="section-heading">
+        <div class="section-heading">
+          <span>01</span>
+          <h3>Research</h3>
+        </div>
 
-            <span>04</span>
+        <div class="research-list">
 
-            <h3>Archive</h3>
+          {research.map((item) => (
 
+            <article class="research-item">
+
+              <div class="research-symbol">
+                {item.symbol}
+              </div>
+
+              <div class="research-main">
+                <h4>{item.title}</h4>
+                <p>{item.description}</p >
+              </div>
+
+              <div class="research-arrow">
+                ↗
+              </div>
+
+            </article>
+
+          ))}
+
+        </div>
+
+      </section>
+
+
+      <!-- PROJECTS / ACTIVITY -->
+
+      <section id="projects" class="section">
+
+        <div class="section-heading">
+          <span>02</span>
+          <h3>Projects / Activity</h3>
+        </div>
+
+        <div class="activity">
+
+          <div class="activity-year">
+            2026
           </div>
 
-          <div class="archive-box">
+          <article class="activity-item">
 
-            <div class="archive-symbol">
+            <div class="activity-date">
+              <span>Oct</span>
+              <strong>05</strong>
+            </div>
 
-              ∞
+            <div class="activity-line">
+              <span></span>
+            </div>
+
+            <div class="activity-body">
+
+              <div class="activity-top">
+
+                <div>
+                  <p class="activity-type">Research</p >
+
+                  <h4>
+                    Started exploring
+                    <span>Brain-Computer Interfaces</span>
+                  </h4>
+                </div>
+
+                <div class="activity-icon">
+                  ⌁
+                </div>
+
+              </div>
+
+              <p class="activity-description">
+                Beginning to investigate neural signals,
+                EEG, computational models, and the relationship
+                between biological and artificial intelligence.
+              </p >
+
+              <div class="activity-links">
+                <a href="#notes">Notes ↗</a >
+                <span>·</span>
+                <a href="#research">Research ↗</a >
+              </div>
 
             </div>
 
-            <div>
+          </article>
 
-              <h4>A record of four years.</h4>
 
-              <p>
+          <article class="activity-item placeholder">
 
-                Research directions will change.
+            <div class="activity-date">
+              <span>soon</span>
+            </div>
 
-                Projects will accumulate.
+            <div class="activity-line">
+              <span></span>
+            </div>
 
-                Notes will become connections.
+            <div class="activity-body">
 
-                This page is meant to grow with them.
+              <div class="activity-top">
 
+                <div>
+                  <p class="activity-type">Project</p >
+
+                  <h4>
+                    Nothing here yet.
+                  </h4>
+                </div>
+
+                <div class="activity-icon muted">
+                  +
+                </div>
+
+              </div>
+
+              <p class="activity-description">
+                This section will gradually become a record
+                of things I actually build, investigate, and publish.
               </p >
 
             </div>
 
+          </article>
+
+        </div>
+
+      </section>
+
+
+      <!-- NOTES -->
+
+      <section id="notes" class="section">
+
+        <div class="section-heading">
+          <span>03</span>
+          <h3>Notes</h3>
+        </div>
+
+        <div class="notes-list">
+
+          {notes.slice(0, 4).map((note) => (
+
+            <a
+              href={`/notes/${note.id}/`}
+              class="note-item"
+            >
+
+              <div class="note-date">
+                {note.data.date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                })}
+              </div>
+
+              <div class="note-content">
+
+                <h4>{note.data.title}</h4>
+
+                <p>{note.data.description}</p >
+
+              </div>
+
+              <span class="note-arrow">
+                ↗
+              </span>
+
+            </a >
+
+          ))}
+
+        </div>
+
+        <p class="notes-foot">
+          Written irregularly. Mostly questions, ideas,
+          observations, and things worth remembering.
+        </p >
+
+      </section>
+
+
+      <!-- ARCHIVE -->
+
+      <section
+        id="archive"
+        class="section archive-section"
+      >
+
+        <div class="section-heading">
+          <span>04</span>
+          <h3>Archive</h3>
+        </div>
+
+        <div class="archive-box">
+
+          <div class="archive-symbol">
+            ∞
           </div>
 
-        </section>
-		
-		<section id="contact" class="section contact-section">
+          <div>
+            <h4>A record of four years.</h4>
 
-          <div class="section-heading">
+            <p>
+              Research directions will change.
+              Projects will accumulate.
+              Notes will become connections.
+              This page is meant to grow with them.
+            </p >
+          </div>
 
-            <span>05</span>
+        </div>
 
-            <h3>Contact</h3>
+      </section>
+
+
+      <!-- CONTACT -->
+
+      <section
+        id="contact"
+        class="section contact-section"
+      >
+
+        <div class="section-heading">
+          <span>05</span>
+          <h3>Contact</h3>
+        </div>
+
+        <div class="contact-grid">
+
+          <div>
+            <p class="contact-intro">
+              If you want to talk about research, ideas,
+              or something I've built, feel free to reach out.
+            </p >
+          </div>
+
+          <div class="contact-links">
+
+            <a href="mailto:mascotxt@outlook.com">
+              Email ↗
+            </a >
+
+            <a
+              href="https://github.com/MascoTxTs"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub ↗
+            </a >
 
           </div>
 
-          <div class="contact-grid">
+        </div>
 
-            <div>
-              <p class="contact-intro">
-                If you want to talk about research, ideas, or something
-                I've built, feel free to reach out.
-              </p >
-            </div>
-
-            <div class="contact-links">
-
-              <a href="mailto:mascotxt@outlook.com">
-                Email ↗
-              </a >
-
-              <a
-                href="https://github.com/MascoTxTs"
-                target="_blank"
-                rel="noreferrer"
-              >
-                GitHub ↗
-              </a >
-
-            </div>
-
-          </div>
-
-        </section>
-
+      </section>
+      
         <section class="feedback-section">
 
           <div class="feedback-line">

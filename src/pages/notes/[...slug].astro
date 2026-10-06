@@ -1,0 +1,232 @@
+---
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes");
+
+  return notes.map((note) => ({
+    params: { slug: note.id },
+    props: { note },
+  }));
+}
+
+const { note } = Astro.props;
+const { Content } = await render(note);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>{note.data.title} — Mascott</title>
+
+    <meta
+      name="description"
+      content={note.data.description}
+    />
+  </head>
+
+  <body>
+    <main class="note-page">
+
+      <a class="back" href=" ">
+        ← Back to Notes
+      </a >
+
+      <header>
+        <p class="eyebrow">NOTE</p >
+
+        <h1>{note.data.title}</h1>
+
+        <div class="meta">
+          <time>
+            {note.data.date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </time>
+
+          <span>·</span>
+
+          <div class="tags">
+            {note.data.tags.map((tag) => (
+              <span>#{tag}</span>
+            ))}
+          </div>
+        </div>
+
+        <p class="description">
+          {note.data.description}
+        </p >
+      </header>
+
+      <article class="content">
+        <Content />
+      </article>
+
+      <footer>
+        <a href="/notes/">← All Notes</a >
+        <a href="/">Home →</a >
+      </footer>
+
+    </main>
+  </body>
+</html>
+
+<style>
+  body {
+    margin: 0;
+    background: #f3f3f1;
+    color: #171717;
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+  }
+
+  .note-page {
+    width: min(760px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 64px 0 100px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .back {
+    font-size: 14px;
+  }
+
+  header {
+    margin: 100px 0 70px;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: #315e8c;
+  }
+
+  h1 {
+    font-size: clamp(38px, 6vw, 64px);
+    line-height: 1.05;
+    font-weight: 500;
+    margin: 20px 0 24px;
+  }
+
+  .meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    color: #777;
+    font-size: 12px;
+  }
+
+  .tags span {
+    margin-right: 10px;
+    color: #315e8c;
+  }
+
+  .description {
+    margin-top: 28px;
+    font-family: Georgia, serif;
+    font-size: 19px;
+    line-height: 1.7;
+    color: #555;
+  }
+
+  .content {
+    border-top: 1px solid #d2d2cf;
+    padding-top: 42px;
+
+    font-family: Georgia, serif;
+    font-size: 18px;
+    line-height: 1.85;
+  }
+
+  .content :global(h2) {
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+
+    font-size: 28px;
+    font-weight: 500;
+    margin-top: 55px;
+  }
+
+  .content :global(h3) {
+    font-family:
+      Inter,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 45px;
+  }
+
+  .content :global(a) {
+    color: #315e8c;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .content :global(code) {
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+
+  .content :global(blockquote) {
+    border-left: 2px solid #315e8c;
+    margin-left: 0;
+    padding-left: 24px;
+    color: #666;
+  }
+
+  footer {
+    border-top: 1px solid #d2d2cf;
+    margin-top: 80px;
+    padding-top: 24px;
+
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 13px;
+  }
+
+  @media (max-width: 760px) {
+    .note-page {
+      width: calc(100% - 32px);
+      padding-top: 32px;
+    }
+
+    header {
+      margin-top: 70px;
+    }
+
+    .content {
+      font-size: 17px;
+    }
+
+    footer {
+      flex-direction: column;
+      gap: 14px;
+    }
+  }
+</style>
