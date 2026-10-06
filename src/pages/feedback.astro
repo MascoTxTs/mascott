@@ -1,0 +1,321 @@
+---
+import { supabase } from "../lib/supabase";
+
+const title = "Feedback — Mascott";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <meta
+      name="description"
+      content="Feedback for Mascott's personal research archive."
+    />
+    <link rel="icon" type="image/svg+xml" href="/cat.svg" />
+  </head>
+
+  <body>
+    <main class="feedback-page">
+      <a class="back" href="/#archive">← Back to archive</a >
+
+      <header>
+        <p class="eyebrow">FEEDBACK</p >
+
+        <h1>
+          Something worth improving?
+        </h1>
+
+        <p class="intro">
+          This website is a four-year archive in progress.
+          If you notice something confusing, broken, or worth changing,
+          I'd like to hear about it.
+        </p >
+      </header>
+
+<form id="feedback-form">
+
+  <label>
+    Nickname
+    <input
+      type="text"
+      name="nickname"
+      placeholder="Optional"
+    />
+  </label>
+
+  <label>
+    Page or section
+    <select name="section">
+      <option value="">Select one</option>
+      <option value="home">Homepage</option>
+      <option value="research">Research</option>
+      <option value="projects">Projects</option>
+      <option value="notes">Notes</option>
+      <option value="other">Other</option>
+    </select>
+  </label>
+
+  <label>
+    Device / platform
+    <input
+      type="text"
+      name="device"
+      placeholder="e.g. iPhone / Windows / Mac"
+    />
+  </label>
+
+  <label>
+    Feedback
+    <textarea
+      name="message"
+      rows="7"
+      placeholder="What should I improve?"
+      required
+    ></textarea>
+  </label>
+
+  <button type="submit">
+    Send feedback
+  </button>
+
+</form>
+
+<div id="feedback-success" class="feedback-success" hidden>
+  <div class="success-symbol">✓</div>
+
+  <h2>Feedback received.</h2>
+
+  <p>
+    Thanks for taking the time to help improve this archive.
+  </p >
+
+  <a href="/#archive" class="success-back">
+    ← Back to archive
+  </a >
+</div>
+
+      <p class="note">
+        Your feedback will help shape future versions of this archive.
+      </p >
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(body) {
+    margin: 0;
+    background: #f2f2f0;
+    color: #181818;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .feedback-page {
+    width: min(720px, calc(100% - 3rem));
+    margin: 0 auto;
+    padding: 4rem 0 6rem;
+  }
+
+  .back {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .back:hover {
+    color: #315E8C;
+  }
+
+  header {
+    margin-top: 6rem;
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    margin: 0 0 1rem;
+    color: #315E8C;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  .intro {
+    max-width: 580px;
+    margin-top: 1.5rem;
+    color: #666;
+    line-height: 1.8;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    color: #333;
+    font-size: 0.9rem;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    border: 1px solid #d2d2cf;
+    border-radius: 0;
+    background: #fafaf8;
+    padding: 0.85rem;
+    color: #181818;
+    font: inherit;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #315E8C;
+  }
+
+  button {
+    width: fit-content;
+    border: 1px solid #181818;
+    background: #181818;
+    color: white;
+    padding: 0.8rem 1.4rem;
+    cursor: pointer;
+    font: inherit;
+  }
+
+  button:hover {
+    background: #315E8C;
+    border-color: #315E8C;
+  }
+
+  .note {
+    margin-top: 2rem;
+    color: #888;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 760px) {
+    .feedback-page {
+      width: min(100% - 2rem, 720px);
+      padding-top: 2rem;
+    }
+
+    header {
+      margin-top: 4rem;
+    }
+  }
+
+.feedback-success {
+  border-top: 1px solid #d2d2cf;
+  border-bottom: 1px solid #d2d2cf;
+  padding: 2rem 0;
+}
+
+.success-symbol {
+  color: #315E8C;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.feedback-success h2 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.8rem;
+  font-weight: 400;
+}
+
+.feedback-success p {
+  color: #666;
+  line-height: 1.7;
+  margin: 0.8rem 0 1.5rem;
+}
+
+.success-back {
+  color: #315E8C;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+</style>
+
+<script>
+  import { supabase } from "../lib/supabase";
+
+  const form = document.querySelector("#feedback-form");
+  const success = document.querySelector("#feedback-success");
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    const nickname = String(formData.get("nickname") || "").trim();
+    const section = String(formData.get("section") || "").trim();
+    const device = String(formData.get("device") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+
+    if (!message) {
+      return;
+    }
+
+    const button = form.querySelector("button");
+
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Sending...";
+    }
+
+    const { error } = await supabase
+      .from("feedback")
+      .insert([
+        {
+          nickname,
+          section,
+          device,
+          message,
+        },
+      ]);
+
+    if (error) {
+      console.error(error);
+
+      if (button) {
+        button.disabled = false;
+        button.textContent = "Send feedback";
+      }
+
+      alert("Something went wrong. Please try again.");
+      return;
+    }
+
+    form.hidden = true;
+
+    if (success) {
+      success.hidden = false;
+    }
+  });
+</script>

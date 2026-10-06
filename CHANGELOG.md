@@ -24,3 +24,35 @@
 - Reduced decorative UI elements and large empty spaces.
 - Introduced a left identity/navigation column and a content-focused right column.
 - Made Projects the main visual content area.
+## Feedback System — Supabase Integration
+
+### Added
+- Added a dedicated feedback page.
+- Added nickname, page/section, device/platform, and message fields.
+- Connected the feedback form to Supabase.
+- Added PostgreSQL `feedback` table.
+- Enabled Row Level Security (RLS).
+- Added anonymous INSERT policy.
+
+### Problem
+The feedback form initially returned:
+
+`404 PGRST125 — Invalid path specified in request URL`
+
+The browser requested:
+
+`/rest/v1/rest/v1/feedback`
+
+### Diagnosis
+The runtime Supabase URL contained `/rest/v1/`, while the Supabase JavaScript client automatically adds `/rest/v1`.
+
+### Solution
+Changed `PUBLIC_SUPABASE_URL` in `.env` from:
+
+`https://tgyjdfssmpyopqlgnmky.supabase.co/rest/v1/`
+
+to:
+
+`https://tgyjdfssmpyopqlgnmky.supabase.co`
+
+After restarting the Astro development server, the feedback submission worked successfully.
