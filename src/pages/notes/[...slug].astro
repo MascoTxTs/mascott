@@ -17,21 +17,23 @@ const { Content } = await render(note);
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+   <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
 
-    <title>{note.data.title} — Mascott</title>
+   <title>{note.data.title} — Mascott</title>
 
     <meta
       name="description"
       content={note.data.description}
     />
+
+   <link rel="icon" type="image/svg+xml" href="/cat.svg" />
   </head>
 
   <body>
     <main class="note-page">
 
-      <a class="back" href=" ">
+      <a class="back" href="/notes/">
         ← Back to Notes
       </a >
 

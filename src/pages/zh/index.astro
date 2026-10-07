@@ -1,66 +1,101 @@
 ---
+
 import { getCollection } from "astro:content";
 
 const research = [
+
   {
+
     symbol: "⌁",
-    title: "Brain-Computer Interfaces",
-    description:
-      "Neural signals, brain–computer interaction, computational approaches",
+
+    title: "脑机接口",
+
+    description: "神经信号、脑机交互、计算方法",
+
   },
+
   {
+
     symbol: "λ",
-    title: "Computer Science",
-    description:
-      "Algorithms, systems, programming, artificial intelligence",
+
+    title: "计算机科学",
+
+    description: "算法、系统、编程、人工智能",
+
   },
+
   {
+
     symbol: "∑",
-    title: "Mathematics",
-    description:
-      "Structures, abstraction, reasoning, mathematical foundations",
+
+    title: "数学",
+
+    description: "结构、抽象、推理、数学基础",
+
   },
+
   {
+
     symbol: "◌",
-    title: "Psychology",
-    description:
-      "Mind, cognition, behavior, human intelligence",
+
+    title: "心理学",
+
+    description: "心智、认知、行为、人类智能",
+
   },
+
 ];
 
 const notes = await getCollection("notes");
 
 notes.sort(
+
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+
 );
+
 ---
+
 <!doctype html>
 
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
+
   <meta charset="UTF-8" />
 
   <meta
+
     name="viewport"
+
     content="width=device-width"
+
   />
 
   <meta
+
     name="description"
-    content="Mascott — Computer Science student and personal research archive."
+
+    content="Mascott — 计算机科学专业学生的个人研究档案。"
+
   />
 
-  <title>Mascott — Computer Science</title>
+  <title>Mascott — 个人研究档案</title>
 
   <link
+
     rel="icon"
+
     type="image/svg+xml"
+
     href="/cat.svg"
+
   />
+
 </head>
 
 <body>
+
   <main class="page">
 
     <!-- LEFT -->
@@ -68,55 +103,84 @@ notes.sort(
     <aside class="sidebar">
 
       <div class="identity">
+
         <div class="portrait">M</div>
 
         <div>
+
           <h1>彭子懿</h1>
+
           <p class="name-en">Mascott</p >
+
         </div>
+
       </div>
 
       <div class="bio">
-        <p>Computer Science</p >
-        <p>Tianjin University × PolyU</p >
-        <p>Shenzhen</p >
-        <p>First-year student</p >
+
+        <p>计算机科学与技术</p >
+
+        <p>天津大学 × 香港理工大学</p >
+
+        <p>深圳</p >
+
+        <p>大一学生</p >
+
       </div>
 
       <div class="sidebar-divider"></div>
+
       <div class="language-switch">
-        <a href="/zh">中文</a >
-         <span>|</span>
-         <a href="/">EN</a >
+
+        <a href=" ">中文</a >
+
+        <span>|</span>
+
+        <a href="/">EN</a >
+
       </div>
 
       <nav class="nav">
-        <a href="#research">Research</a>
-        <a href="#projects">Projects</a >
-        <a href="#notes">Notes</a >
-        <a href="#archive">Archive</a >
+
+        <a href="#research">研究</a >
+
+        <a href="#projects">项目 / 活动</a >
+
+        <a href="#notes">记录</a >
+
+        <a href="#archive">档案</a >
+
       </nav>
 
       <div class="sidebar-divider"></div>
 
       <div class="links">
+
         <a
+
           href="https://github.com/MascoTxTs"
+
           target="_blank"
+
           rel="noreferrer"
+
         >
+
           GitHub ↗
+
         </a >
 
         <a href="mailto:mascotxt@outlook.com">
+
           Email ↗
+
         </a >
+
       </div>
 
       <div class="side-mark">M/</div>
 
     </aside>
-
 
     <!-- RIGHT -->
 
@@ -125,31 +189,43 @@ notes.sort(
       <!-- INTRO -->
 
       <header class="intro">
+
         <div class="section-mark">§</div>
 
         <div>
-          <p class="eyebrow">PERSONAL RESEARCH ARCHIVE</p >
+
+          <p class="eyebrow">个人研究档案</p >
 
           <h2>
-            Questions worth exploring.<br />
-            Things worth building.
+
+            值得探索的问题。<br />
+
+            值得构建的东西。
+
           </h2>
 
           <p class="intro-text">
-            A growing archive of research interests, experiments,
-            notes, and things I build along the way.
-          </p >
-        </div>
-      </header>
 
+            记录我的研究兴趣、实验、笔记，
+
+            以及一路上做出来的东西。
+
+          </p >
+
+        </div>
+
+      </header>
 
       <!-- RESEARCH -->
 
       <section id="research" class="section">
 
         <div class="section-heading">
+
           <span>01</span>
-          <h3>Research</h3>
+
+          <h3>研究</h3>
+
         </div>
 
         <div class="research-list">
@@ -159,16 +235,23 @@ notes.sort(
             <article class="research-item">
 
               <div class="research-symbol">
+
                 {item.symbol}
+
               </div>
 
               <div class="research-main">
+
                 <h4>{item.title}</h4>
+
                 <p>{item.description}</p >
+
               </div>
 
               <div class="research-arrow">
+
                 ↗
+
               </div>
 
             </article>
@@ -179,31 +262,40 @@ notes.sort(
 
       </section>
 
-
       <!-- PROJECTS / ACTIVITY -->
 
       <section id="projects" class="section">
 
         <div class="section-heading">
+
           <span>02</span>
-          <h3>Projects / Activity</h3>
+
+          <h3>项目 / 活动</h3>
+
         </div>
 
         <div class="activity">
 
           <div class="activity-year">
+
             2026
+
           </div>
 
           <article class="activity-item">
 
             <div class="activity-date">
-              <span>Oct</span>
+
+              <span>10月</span>
+
               <strong>05</strong>
+
             </div>
 
             <div class="activity-line">
+
               <span></span>
+
             </div>
 
             <div class="activity-body">
@@ -211,45 +303,61 @@ notes.sort(
               <div class="activity-top">
 
                 <div>
-                  <p class="activity-type">Research</p >
+
+                  <p class="activity-type">研究</p >
 
                   <h4>
-                    Started exploring
-                    <span>Brain-Computer Interfaces</span>
+
+                    开始探索
+
+                    <span>脑机接口</span>
+
                   </h4>
+
                 </div>
 
                 <div class="activity-icon">
+
                   ⌁
+
                 </div>
 
               </div>
 
               <p class="activity-description">
-                Beginning to investigate neural signals,
-                EEG, computational models, and the relationship
-                between biological and artificial intelligence.
+
+                开始探索神经信号、脑电图（EEG）、
+
+                计算模型，以及生物智能与人工智能之间的关系。
+
               </p >
 
               <div class="activity-links">
-                <a href="#notes">Notes ↗</a >
+
+                <a href="#notes">记录 ↗</a >
+
                 <span>·</span>
-                <a href="#research">Research ↗</a >
+
+                <a href="#research">研究 ↗</a >
+
               </div>
 
             </div>
 
           </article>
 
-
           <article class="activity-item placeholder">
 
             <div class="activity-date">
-              <span>soon</span>
+
+              <span>未来</span>
+
             </div>
 
             <div class="activity-line">
+
               <span></span>
+
             </div>
 
             <div class="activity-body">
@@ -257,22 +365,29 @@ notes.sort(
               <div class="activity-top">
 
                 <div>
-                  <p class="activity-type">Project</p >
+
+                  <p class="activity-type">项目</p >
 
                   <h4>
-                    Nothing here yet.
+
+                    前面的区域以后再来探索吧
+
                   </h4>
+
                 </div>
 
                 <div class="activity-icon muted">
+
                   +
+
                 </div>
 
               </div>
 
               <p class="activity-description">
-                This section will gradually become a record
-                of things I actually build, investigate, and publish.
+
+                这里会逐渐记录我真正构建、研究和发表的东西。
+
               </p >
 
             </div>
@@ -283,14 +398,16 @@ notes.sort(
 
       </section>
 
-
       <!-- NOTES -->
 
       <section id="notes" class="section">
 
         <div class="section-heading">
+
           <span>03</span>
-          <h3>Notes</h3>
+
+          <h3>记录</h3>
+
         </div>
 
         <div class="notes-list">
@@ -298,16 +415,25 @@ notes.sort(
           {notes.slice(0, 4).map((note) => (
 
             <a
+
               href={`/notes/${note.id}/`}
+
               class="note-item"
+
             >
 
               <div class="note-date">
-                {note.data.date.toLocaleDateString("en-US", {
+
+                {note.data.date.toLocaleDateString("zh-CN", {
+
                   year: "numeric",
+
                   month: "2-digit",
+
                   day: "2-digit",
+
                 })}
+
               </div>
 
               <div class="note-content">
@@ -319,7 +445,9 @@ notes.sort(
               </div>
 
               <span class="note-arrow">
+
                 ↗
+
               </span>
 
             </a >
@@ -329,80 +457,113 @@ notes.sort(
         </div>
 
         <p class="notes-foot">
-          Written irregularly. Mostly questions, ideas,
-          observations, and things worth remembering.
+
+          不定期记录。主要是问题、想法、观察，
+
+          以及那些值得记住的东西。
+
         </p >
 
       </section>
 
-
       <!-- ARCHIVE -->
 
       <section
+
         id="archive"
+
         class="section archive-section"
+
       >
 
         <div class="section-heading">
+
           <span>04</span>
-          <h3>Archive</h3>
+
+          <h3>档案</h3>
+
         </div>
 
         <div class="archive-box">
 
           <div class="archive-symbol">
+
             ∞
+
           </div>
 
           <div>
-            <h4>A record of four years.</h4>
+
+            <h4>四年的记录。</h4>
 
             <p>
-              Research directions will change.
-              Projects will accumulate.
-              Notes will become connections.
-              This page is meant to grow with them.
+
+              研究方向会改变。
+
+              项目会逐渐积累。
+
+              笔记会逐渐形成连接。
+
+              这个页面也会和它们一起成长。
+
             </p >
+
           </div>
 
         </div>
 
       </section>
 
-
       <!-- CONTACT -->
 
       <section
+
         id="contact"
+
         class="section contact-section"
+
       >
 
         <div class="section-heading">
+
           <span>05</span>
-          <h3>Contact</h3>
+
+          <h3>联系</h3>
+
         </div>
 
         <div class="contact-grid">
 
           <div>
+
             <p class="contact-intro">
-              If you want to talk about research, ideas,
-              or something I've built, feel free to reach out.
+
+              如果你想联系我，可以通过以下方式找到我。
+
             </p >
+
           </div>
 
           <div class="contact-links">
 
             <a href="mailto:mascotxt@outlook.com">
+
               Email ↗
+
             </a >
 
             <a
+
               href="https://github.com/MascoTxTs"
+
               target="_blank"
+
               rel="noreferrer"
+
             >
+
               GitHub ↗
+
             </a >
 
           </div>
@@ -411,43 +572,51 @@ notes.sort(
 
       </section>
 
-        <section class="feedback-section">
+      <!-- FEEDBACK -->
 
-          <div class="feedback-line">
-            <span>Have a suggestion?</span>
+      <section class="feedback-section">
 
-            <a href="/feedback">
-              Send feedback ↗
-            </a >
-          </div>
+        <div class="feedback-line">
 
-        </section>
+          <span>有什么建议</span>
 
-        <!-- FOOTER -->
+          <a href="/feedback">
 
-        <footer>
+            发送反馈 ↗
 
-          <div>
+          </a >
 
-            <span class="footer-mark">M/</span>
-
-            <span>Mascott</span>
-
-          </div>
-
-          <div>
-
-            Shenzhen · 2026
-
-          </div>
-
-        </footer>
+        </div>
 
       </section>
 
-    </main>
+      <!-- FOOTER -->
 
-  </body>
+      <footer>
+
+        <div>
+
+          <span class="footer-mark">M/</span>
+
+          <span>Mascott</span>
+
+        </div>
+
+        <div>
+
+          深圳 · 2026
+
+        </div>
+
+      </footer>
+
+    </section>
+
+  </main>
+
+</body>
+
+
 
 </html>
 
@@ -725,7 +894,13 @@ notes.sort(
 
     margin: 0;
 
-    font-family: Georgia, "Times New Roman", serif;
+    font-family:
+
+      Georgia,
+
+      "Times New Roman",
+
+      serif;
 
     font-size: clamp(32px, 4vw, 49px);
 
@@ -1135,65 +1310,107 @@ notes.sort(
 
   ========================= */
 
-.notes-list {
-  border-top: 1px solid #d6d6d2;
-}
+  .notes-list {
 
-.note-item {
-  display: grid;
-  grid-template-columns: 70px 1fr 25px;
-  gap: 15px;
-  align-items: center;
-  padding: 20px 8px;
-  border-bottom: 1px solid #d6d6d2;
-  color: inherit;
-  text-decoration: none;
-  transition: background 160ms ease;
-}
+    border-top: 1px solid #d6d6d2;
 
-.note-item:hover {
-  background: #ebebe8;
-}
+  }
 
-.note-date {
-  color: #888;
-  font-size: 12px;
-}
+  .note-item {
 
-.note-content h4 {
-  margin: 0;
-  font-family: Georgia, serif;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.4;
-  color: #06c;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+    display: grid;
 
-.note-item:hover .note-content h4 {
-  color: #004499;
-}
+    grid-template-columns: 70px 1fr 25px;
 
-.note-content p {
-  margin: 6px 0 0;
-  color: #888;
-  font-size: 12px;
-}
+    gap: 15px;
 
-.note-arrow {
-  color: #aaa;
-  text-align: right;
-}
+    align-items: center;
 
-.notes-foot {
-  max-width: 500px;
-  margin: 22px 0 0;
-  color: #888;
-  font-family: Georgia, serif;
-  font-size: 14px;
-  line-height: 1.6;
-}
+    padding: 20px 8px;
+
+    border-bottom: 1px solid #d6d6d2;
+
+    color: inherit;
+
+    text-decoration: none;
+
+    transition: background 160ms ease;
+
+  }
+
+  .note-item:hover {
+
+    background: #ebebe8;
+
+  }
+
+  .note-date {
+
+    color: #888;
+
+    font-size: 12px;
+
+  }
+
+  .note-content h4 {
+
+    margin: 0;
+
+    font-family: Georgia, serif;
+
+    font-size: 17px;
+
+    font-weight: 400;
+
+    line-height: 1.4;
+
+    color: #06c;
+
+    text-decoration: underline;
+
+    text-underline-offset: 3px;
+
+  }
+
+  .note-item:hover .note-content h4 {
+
+    color: #004499;
+
+  }
+
+  .note-content p {
+
+    margin: 6px 0 0;
+
+    color: #888;
+
+    font-size: 12px;
+
+  }
+
+  .note-arrow {
+
+    color: #aaa;
+
+    text-align: right;
+
+  }
+
+  .notes-foot {
+
+    max-width: 500px;
+
+    margin: 22px 0 0;
+
+    color: #888;
+
+    font-family: Georgia, serif;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+  }
 
   /* =========================
 
@@ -1399,79 +1616,148 @@ notes.sort(
 
   }
 
-.contact-section {
-  margin-top: 5rem;
-}
+  /* =========================
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(180px, 0.7fr);
-  gap: 4rem;
-  align-items: start;
-}
+     CONTACT
 
-.contact-intro {
-  max-width: 560px;
-  margin: 0;
-  color: #555;
-  line-height: 1.8;
-}
+  ========================= */
 
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
+  .contact-section {
 
-.contact-links a,
-.feedback-line a {
-  color: #315E8C;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
+    margin-top: 5rem;
 
-.feedback-section {
-  margin-top: 4rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid #d8d8d5;
-}
+  }
 
-.feedback-line {
-  display: flex;
-  justify-content: space-between;
-  gap: 2rem;
-  color: #777;
-  font-size: 0.9rem;
-}
-
-@media (max-width: 760px) {
   .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+
+    display: grid;
+
+    grid-template-columns:
+
+      minmax(0, 1.5fr)
+
+      minmax(180px, 0.7fr);
+
+    gap: 4rem;
+
+    align-items: start;
+
+  }
+
+  .contact-intro {
+
+    max-width: 560px;
+
+    margin: 0;
+
+    color: #555;
+
+    line-height: 1.8;
+
+  }
+
+  .contact-links {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.8rem;
+
+  }
+
+  .contact-links a,
+
+  .feedback-line a {
+
+    color: #315E8C;
+
+    text-decoration: underline;
+
+    text-decoration-thickness: 1px;
+
+    text-underline-offset: 3px;
+
+  }
+
+  .feedback-section {
+
+    margin-top: 4rem;
+
+    padding-top: 1.2rem;
+
+    border-top: 1px solid #d8d8d5;
+
   }
 
   .feedback-line {
-    flex-direction: column;
-    gap: 0.5rem;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 2rem;
+
+    color: #777;
+
+    font-size: 0.9rem;
+
   }
-}
+
+  /* =========================
+
+     LANGUAGE SWITCH
+
+  ========================= */
 
   .language-switch {
+
     display: flex;
+
     gap: 8px;
+
     align-items: center;
+
     margin-bottom: 22px;
+
     font-size: 12px;
+
   }
 
   .language-switch a {
-   color: #06c;
-   text-decoration: underline;
-   text-underline-offset: 3px;
+
+    color: #06c;
+
+    text-decoration: underline;
+
+    text-underline-offset: 3px;
+
   }
 
   .language-switch span {
-   color: #aaa;
+
+    color: #aaa;
+
   }
+
+  @media (max-width: 760px) {
+
+    .contact-grid {
+
+      grid-template-columns: 1fr;
+
+      gap: 1.5rem;
+
+    }
+
+    .feedback-line {
+
+      flex-direction: column;
+
+      gap: 0.5rem;
+
+    }
+
+  }
+
 </style>
