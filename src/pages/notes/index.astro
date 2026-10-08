@@ -1,6 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + "/";
+
 const notes = await getCollection("notes");
 
 notes.sort(
@@ -15,19 +19,19 @@ notes.sort(
     <meta name="viewport" content="width=device-width" />
     <title>Notes — Mascott</title>
 
-    <link rel="icon" type="image/svg+xml" href="/cat.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}cat.svg`} />
   </head>
 
   <body>
     <main class="notes-page">
-      <a href="/">← Back to home</a >
+      <a href={base}>← Back to home</a>
 
       <header>
-        <p>NOTES</p >
+        <p>NOTES</p>
         <h1>Things worth recording.</h1>
         <p>
           A growing archive of ideas, questions, and things I learn.
-        </p >
+        </p>
       </header>
 
       <section>
@@ -43,12 +47,12 @@ notes.sort(
               </time>
 
               <h2>
-                <a href={`/notes/${note.id}/`}>
+                <a href={`${base}notes/${note.id}/`}>
                   {note.data.title}
-                </a >
+                </a>
               </h2>
 
-              <p>{note.data.description}</p >
+              <p>{note.data.description}</p>
 
               <div>
                 {note.data.tags.map((tag) => (

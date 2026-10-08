@@ -1,6 +1,9 @@
 ---
-
 import { getCollection } from "astro:content";
+
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + "/";
 
 const research = [
 
@@ -88,7 +91,7 @@ notes.sort(
 
     type="image/svg+xml"
 
-    href="/cat.svg"
+    href={`${base}cat.svg`}
 
   />
 
@@ -110,7 +113,7 @@ notes.sort(
 
           <h1>彭子懿</h1>
 
-          <p class="name-en">Mascott</p >
+          <p class="name-en">Mascott</p>
 
         </div>
 
@@ -118,13 +121,13 @@ notes.sort(
 
       <div class="bio">
 
-        <p>计算机科学与技术</p >
+        <p>计算机科学与技术</p>
 
-        <p>天津大学 × 香港理工大学</p >
+        <p>天津大学 × 香港理工大学</p>
 
-        <p>深圳</p >
+        <p>深圳</p>
 
-        <p>大一学生</p >
+        <p>大一学生</p>
 
       </div>
 
@@ -132,23 +135,23 @@ notes.sort(
 
       <div class="language-switch">
 
-        <a href=" ">中文</a >
+        <a href={`${base}zh/`}>中文</a>
 
         <span>|</span>
 
-        <a href="/">EN</a >
+        <a href={base}>EN</a>
 
       </div>
 
       <nav class="nav">
 
-        <a href="#research">研究</a >
+        <a href="#research">研究</a>
 
-        <a href="#projects">项目 / 活动</a >
+        <a href="#projects">项目 / 活动</a>
 
-        <a href="#notes">记录</a >
+        <a href="#notes">记录</a>
 
-        <a href="#archive">档案</a >
+        <a href="#archive">档案</a>
 
       </nav>
 
@@ -168,13 +171,13 @@ notes.sort(
 
           GitHub ↗
 
-        </a >
+        </a>
 
         <a href="mailto:mascotxt@outlook.com">
 
           Email ↗
 
-        </a >
+        </a>
 
       </div>
 
@@ -194,7 +197,7 @@ notes.sort(
 
         <div>
 
-          <p class="eyebrow">个人研究档案</p >
+          <p class="eyebrow">个人研究档案</p>
 
           <h2>
 
@@ -210,7 +213,7 @@ notes.sort(
 
             以及一路上做出来的东西。
 
-          </p >
+          </p>
 
         </div>
 
@@ -244,7 +247,7 @@ notes.sort(
 
                 <h4>{item.title}</h4>
 
-                <p>{item.description}</p >
+                <p>{item.description}</p>
 
               </div>
 
@@ -304,7 +307,7 @@ notes.sort(
 
                 <div>
 
-                  <p class="activity-type">研究</p >
+                  <p class="activity-type">研究</p>
 
                   <h4>
 
@@ -330,15 +333,15 @@ notes.sort(
 
                 计算模型，以及生物智能与人工智能之间的关系。
 
-              </p >
+              </p>
 
               <div class="activity-links">
 
-                <a href="#notes">记录 ↗</a >
+                <a href="#notes">记录 ↗</a>
 
                 <span>·</span>
 
-                <a href="#research">研究 ↗</a >
+                <a href="#research">研究 ↗</a>
 
               </div>
 
@@ -366,7 +369,7 @@ notes.sort(
 
                 <div>
 
-                  <p class="activity-type">项目</p >
+                  <p class="activity-type">项目</p>
 
                   <h4>
 
@@ -388,7 +391,7 @@ notes.sort(
 
                 这里会逐渐记录我真正构建、研究和发表的东西。
 
-              </p >
+              </p>
 
             </div>
 
@@ -416,7 +419,7 @@ notes.sort(
 
             <a
 
-              href={`/notes/${note.id}/`}
+              href={`${base}notes/${note.id}/`}
 
               class="note-item"
 
@@ -440,7 +443,7 @@ notes.sort(
 
                 <h4>{note.data.title}</h4>
 
-                <p>{note.data.description}</p >
+                <p>{note.data.description}</p>
 
               </div>
 
@@ -450,7 +453,7 @@ notes.sort(
 
               </span>
 
-            </a >
+            </a>
 
           ))}
 
@@ -462,7 +465,7 @@ notes.sort(
 
           以及那些值得记住的东西。
 
-        </p >
+        </p>
 
       </section>
 
@@ -506,7 +509,7 @@ notes.sort(
 
               这个页面也会和它们一起成长。
 
-            </p >
+            </p>
 
           </div>
 
@@ -540,7 +543,7 @@ notes.sort(
 
               如果你想联系我，可以通过以下方式找到我。
 
-            </p >
+            </p>
 
           </div>
 
@@ -550,7 +553,7 @@ notes.sort(
 
               Email ↗
 
-            </a >
+            </a>
 
             <a
 
@@ -564,7 +567,7 @@ notes.sort(
 
               GitHub ↗
 
-            </a >
+            </a>
 
           </div>
 
@@ -580,11 +583,11 @@ notes.sort(
 
           <span>有什么建议</span>
 
-          <a href="/feedback">
+          <a href={`${base}feedback`}>
 
             发送反馈 ↗
 
-          </a >
+          </a>
 
         </div>
 

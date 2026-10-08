@@ -1,4 +1,8 @@
 ---
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + "/";
+
 const title = "Feedback — Mascott";
 ---
 
@@ -14,7 +18,7 @@ const title = "Feedback — Mascott";
       content="Feedback for Mascott's personal research archive."
     />
 
-    <link rel="icon" type="image/svg+xml" href="/cat.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${base}cat.svg`} />
   </head>
 
   <body>
@@ -23,12 +27,12 @@ const title = "Feedback — Mascott";
       <!-- Feedback form state -->
       <section id="feedback-form-section">
 
-        <a class="back" href="/">
+        <a class="back" href={base}>
           ← Back to home
-        </a >
+        </a>
 
         <header>
-          <p class="eyebrow">FEEDBACK</p >
+          <p class="eyebrow">FEEDBACK</p>
 
           <h1>
             Something worth improving?
@@ -38,7 +42,7 @@ const title = "Feedback — Mascott";
             This website is a four-year archive in progress.
             If you notice something confusing, broken, or worth changing,
             I'd like to hear about it.
-          </p >
+          </p>
         </header>
 
         <form id="feedback-form">
@@ -91,7 +95,7 @@ const title = "Feedback — Mascott";
 
         <p class="note">
           Your feedback will help shape future versions of this archive.
-        </p >
+        </p>
 
       </section>
 
@@ -103,7 +107,7 @@ const title = "Feedback — Mascott";
         hidden
       >
 
-        <p class="eyebrow">FEEDBACK</p >
+        <p class="eyebrow">FEEDBACK</p>
 
         <div class="success-symbol">✓</div>
 
@@ -113,13 +117,13 @@ const title = "Feedback — Mascott";
 
         <p class="success-message">
           Thanks for taking the time to help improve this archive.
-        </p >
+        </p>
 
         <div class="success-actions">
 
-          <a href="/" class="success-back">
+          <a href={base} class="success-back">
             ← Back to home
-          </a >
+          </a>
 
           <button
             type="button"

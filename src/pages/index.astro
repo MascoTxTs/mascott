@@ -1,6 +1,10 @@
 ---
 import { getCollection } from "astro:content";
 
+const base = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : import.meta.env.BASE_URL + "/";
+
 const research = [
   {
     symbol: "⌁",
@@ -56,7 +60,7 @@ notes.sort(
   <link
     rel="icon"
     type="image/svg+xml"
-    href="/cat.svg"
+    href={`${base}cat.svg`}
   />
 </head>
 
@@ -72,29 +76,29 @@ notes.sort(
 
         <div>
           <h1>彭子懿</h1>
-          <p class="name-en">Mascott</p >
+          <p class="name-en">Mascott</p>
         </div>
       </div>
 
       <div class="bio">
-        <p>Computer Science</p >
-        <p>Tianjin University × PolyU</p >
-        <p>Shenzhen</p >
-        <p>First-year student</p >
+        <p>Computer Science</p>
+        <p>Tianjin University × PolyU</p>
+        <p>Shenzhen</p>
+        <p>First-year student</p>
       </div>
 
       <div class="sidebar-divider"></div>
       <div class="language-switch">
-        <a href="/zh">中文</a >
-         <span>|</span>
-         <a href="/">EN</a >
+        <a href={`${base}zh/`}>中文</a>
+        <span>|</span>
+        <a href={base}>EN</a>
       </div>
 
       <nav class="nav">
         <a href="#research">Research</a>
-        <a href="#projects">Projects</a >
-        <a href="#notes">Notes</a >
-        <a href="#archive">Archive</a >
+        <a href="#projects">Projects</a>
+        <a href="#notes">Notes</a>
+        <a href="#archive">Archive</a>
       </nav>
 
       <div class="sidebar-divider"></div>
@@ -106,11 +110,11 @@ notes.sort(
           rel="noreferrer"
         >
           GitHub ↗
-        </a >
+        </a>
 
         <a href="mailto:mascotxt@outlook.com">
           Email ↗
-        </a >
+        </a>
       </div>
 
       <div class="side-mark">M/</div>
@@ -128,7 +132,7 @@ notes.sort(
         <div class="section-mark">§</div>
 
         <div>
-          <p class="eyebrow">PERSONAL RESEARCH ARCHIVE</p >
+          <p class="eyebrow">PERSONAL RESEARCH ARCHIVE</p>
 
           <h2>
             Questions worth exploring.<br />
@@ -138,7 +142,7 @@ notes.sort(
           <p class="intro-text">
             A growing archive of research interests, experiments,
             notes, and things I build along the way.
-          </p >
+          </p>
         </div>
       </header>
 
@@ -164,7 +168,7 @@ notes.sort(
 
               <div class="research-main">
                 <h4>{item.title}</h4>
-                <p>{item.description}</p >
+                <p>{item.description}</p>
               </div>
 
               <div class="research-arrow">
@@ -211,7 +215,7 @@ notes.sort(
               <div class="activity-top">
 
                 <div>
-                  <p class="activity-type">Research</p >
+                  <p class="activity-type">Research</p>
 
                   <h4>
                     Started exploring
@@ -229,12 +233,12 @@ notes.sort(
                 Beginning to investigate neural signals,
                 EEG, computational models, and the relationship
                 between biological and artificial intelligence.
-              </p >
+              </p>
 
               <div class="activity-links">
-                <a href="#notes">Notes ↗</a >
+                <a href="#notes">Notes ↗</a>
                 <span>·</span>
-                <a href="#research">Research ↗</a >
+                <a href="#research">Research ↗</a>
               </div>
 
             </div>
@@ -257,7 +261,7 @@ notes.sort(
               <div class="activity-top">
 
                 <div>
-                  <p class="activity-type">Project</p >
+                  <p class="activity-type">Project</p>
 
                   <h4>
                     Nothing here yet.
@@ -273,7 +277,7 @@ notes.sort(
               <p class="activity-description">
                 This section will gradually become a record
                 of things I actually build, investigate, and publish.
-              </p >
+              </p>
 
             </div>
 
@@ -298,7 +302,7 @@ notes.sort(
           {notes.slice(0, 4).map((note) => (
 
             <a
-              href={`/notes/${note.id}/`}
+              href={`${base}notes/${note.id}/`}
               class="note-item"
             >
 
@@ -314,7 +318,7 @@ notes.sort(
 
                 <h4>{note.data.title}</h4>
 
-                <p>{note.data.description}</p >
+                <p>{note.data.description}</p>
 
               </div>
 
@@ -322,7 +326,7 @@ notes.sort(
                 ↗
               </span>
 
-            </a >
+            </a>
 
           ))}
 
@@ -331,7 +335,7 @@ notes.sort(
         <p class="notes-foot">
           Written irregularly. Mostly questions, ideas,
           observations, and things worth remembering.
-        </p >
+        </p>
 
       </section>
 
@@ -362,7 +366,7 @@ notes.sort(
               Projects will accumulate.
               Notes will become connections.
               This page is meant to grow with them.
-            </p >
+            </p>
           </div>
 
         </div>
@@ -388,14 +392,14 @@ notes.sort(
             <p class="contact-intro">
               If you want to talk about research, ideas,
               or something I've built, feel free to reach out.
-            </p >
+            </p>
           </div>
 
           <div class="contact-links">
 
             <a href="mailto:mascotxt@outlook.com">
               Email ↗
-            </a >
+            </a>
 
             <a
               href="https://github.com/MascoTxTs"
@@ -403,7 +407,7 @@ notes.sort(
               rel="noreferrer"
             >
               GitHub ↗
-            </a >
+            </a>
 
           </div>
 
@@ -416,9 +420,9 @@ notes.sort(
           <div class="feedback-line">
             <span>Have a suggestion?</span>
 
-            <a href="/feedback">
+            <a href={`${base}feedback`}>
               Send feedback ↗
-            </a >
+            </a>
           </div>
 
         </section>
