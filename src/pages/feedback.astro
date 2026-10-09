@@ -82,9 +82,11 @@ const title = "Feedback — Mascott";
             <textarea
               name="message"
               rows="7"
+              maxlength="1000"
               placeholder="What should I improve?"
               required
             ></textarea>
+            <span id="message-counter">0 / 1000</span>
           </label>
 
           <button type="submit" id="submit-button">
@@ -349,6 +351,18 @@ const title = "Feedback — Mascott";
   const button = document.querySelector("#submit-button");
   const writeAgain = document.querySelector("#write-again");
 
+  const messageInput = document.querySelector(
+  'textarea[name="message"]'
+);
+const messageCounter = document.querySelector("#message-counter");
+
+messageInput?.addEventListener("input", () => {
+  if (messageCounter && messageInput) {
+    messageCounter.textContent =
+      `${messageInput.value.length} / 1000`;
+  }
+});
+
   form?.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -371,6 +385,11 @@ const title = "Feedback — Mascott";
     ).trim();
 
     if (!message) {
+      return;
+    }
+
+    if (message.length > 1000) {
+      alert("Feedback must be 1000 characters or fewer.");
       return;
     }
 
@@ -418,6 +437,12 @@ const title = "Feedback — Mascott";
   writeAgain?.addEventListener("click", () => {
 
     form?.reset();
+
+    if (messageCounter) {
+
+      messageCounter.textContent = "0 / 1000";
+
+    } 
 
     if (button) {
       button.disabled = false;
