@@ -56,3 +56,8 @@ to:
 `https://tgyjdfssmpyopqlgnmky.supabase.co`
 
 After restarting the Astro development server, the feedback submission worked successfully.
+## 2026-11-02
+
+- Added Chinese notes content, list/detail routes and feedback page; kept Chinese navigation within /zh/.
+- Added standalone bilingual digital-twin demo pages with preset answers, suggested questions and clear-chat action. No AI API or message storage.
+- Added small homepage links to the demo and fixed the English alias base path.

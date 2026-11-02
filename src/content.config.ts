@@ -16,4 +16,8 @@ const notes = defineCollection({
 
 export const collections = {
   notes,
+  notesZh: defineCollection({
+    loader: glob({ pattern: "**/*.md", base: "./src/content/notes-zh" }),
+    schema: z.object({ title: z.string(), date: z.coerce.date(), description: z.string(), tags: z.array(z.string()).default([]) }),
+  }),
 };

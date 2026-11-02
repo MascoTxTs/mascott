@@ -49,7 +49,7 @@ const research = [
 
 ];
 
-const notes = await getCollection("notes");
+const notes = await getCollection("notesZh");
 
 notes.sort(
 
@@ -158,6 +158,7 @@ notes.sort(
       <div class="sidebar-divider"></div>
 
       <div class="links">
+        <a href={`${base}zh/twin/`}> 数字分身 ↗ </a>
 
         <a
 
@@ -419,7 +420,7 @@ notes.sort(
 
             <a
 
-              href={`${base}notes/${note.id}/`}
+              href={`${base}zh/notes/${note.id}/`}
 
               class="note-item"
 
@@ -583,7 +584,7 @@ notes.sort(
 
           <span>有什么建议</span>
 
-          <a href={`${base}feedback`}>
+          <a href={`${base}zh/feedback`}>
 
             发送反馈 ↗
 
