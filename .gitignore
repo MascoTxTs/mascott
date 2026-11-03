@@ -22,3 +22,12 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Local-only digital twin review drafts; never publish or bundle.
+/.private-twin/
+
+# Supabase local credentials and generated state
+supabase/.temp/
+supabase/.branches/
+.env.*
+!.env.example

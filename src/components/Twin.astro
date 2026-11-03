@@ -9,36 +9,48 @@ const topics = zh ? ["介绍一下自己", "你对什么感兴趣？", "这个�
 <body>
 <main data-zh={String(zh)}>
 <nav><a href={`${base}${zh ? "zh/" : ""}`}>{zh ? "← 返回首页" : "← Home"}</a><a href={`${base}${zh ? "twin/" : "zh/twin/"}`}>{zh ? "English" : "中文"}</a></nav>
-<header><p class="eyebrow">MASCOTT / {zh ? "交互演示" : "INTERACTIVE DEMO"}</p><h1>{zh ? "与我的数字分身聊聊。" : "Meet my digital twin."}</h1><p>{zh ? "目前为预设回答演示，尚未接入 AI。回答仅基于主页公开资料，不代表本人实时回复。" : "A preset-response demo, not connected to AI. Answers use public homepage information and are not live replies from me."}</p></header>
+<header><p class="eyebrow">MASCOTT / {zh ? "AI 分身" : "AI TWIN"}</p><h1>{zh ? "与我的数字分身聊聊。" : "Meet my digital twin."}</h1><p>{zh ? "这是 AI 分身，不是本人实时回复。发送后，问题和最近两轮对话会交给 DeepSeek 处理；请勿输入敏感信息。" : "An AI twin, not live replies from me. Your question and up to two recent turns are sent to DeepSeek. Please avoid sensitive information."}</p></header>
 <div class="topics" aria-label={zh ? "示例问题" : "Example questions"}>{topics.map(t => <button type="button" data-topic={t}>{t}</button>)}</div>
 <section id="conversation" role="log" aria-live="polite" aria-label={zh ? "对话记录" : "Conversation"}><p class="welcome">{zh ? "选择一个问题，或输入你想了解的内容。" : "Choose a question or type something you would like to know."}</p></section>
+<p id="chat-status" role="status" aria-live="polite">{zh ? "每浏览器每天 10 次，同一网络每天 20 次；全站另有额度上限。" : "10 requests per browser/day, 20 per network/day; site-wide caps also apply."}</p>
 <form id="chat"><label for="question">{zh ? "你的问题" : "Your question"}</label><div class="input-row"><input id="question" name="question" maxlength="300" required autocomplete="off" /><button type="submit">{zh ? "发送" : "Send"}</button></div></form>
-<footer><span>{zh ? "对话仅保留在当前页面，刷新后清空。" : "Conversation stays on this page and clears on refresh."}</span><button id="clear" type="button">{zh ? "清空对话" : "Clear chat"}</button></footer>
+<footer><span>{zh ? "本站不保存聊天正文；刷新会清空本页对话，额度不会重置。" : "This site does not store chat text. Refresh clears this page, not your quota."}</span><button id="clear" type="button">{zh ? "清空对话" : "Clear chat"}</button></footer>
 <noscript>{zh ? "请启用 JavaScript 使用对话演示。" : "Enable JavaScript to use this demo."}</noscript>
 </main>
 <script>
  const zh = document.querySelector('main')?.dataset.zh === 'true';
  const input = document.querySelector<HTMLInputElement>('#question')!;
  const log = document.querySelector<HTMLElement>('#conversation')!;
+ const status = document.querySelector<HTMLElement>('#chat-status')!;
  const greeting = log.innerHTML;
- function reply(question: string) {
-  if (/联系|邮箱|contact|email/i.test(question)) return zh ? '可以通过 mascotxt@outlook.com 联系 Mascott。' : 'You can contact Mascott at mascotxt@outlook.com.';
-  if (/兴趣|研究|interest|research/i.test(question)) return zh ? '我关注计算机科学、数学、心理学与脑机接口，目前处于学习与探索阶段。' : 'My interests include computer science, mathematics, psychology, and brain-computer interfaces. I am currently learning and exploring.';
-  if (/网站|项目|website|project/i.test(question)) return zh ? '这个网站用于记录我的学习、研究兴趣、项目与笔记，使用 Astro 构建。你可以在首页查看内容，也可以通过反馈页面提出建议。' : 'This Astro website records my learning, research interests, projects, and notes. Explore the homepage or leave a suggestion through the feedback page.';
-  if (/介绍|自己|是谁|introduce|yourself|who are/i.test(question)) return zh ? '你好，我是 Mascott（彭子懿），计算机科学专业大一学生，位于深圳。' : 'Hello, I am Mascott, a first-year Computer Science student based in Shenzhen.';
-  return zh ? '演示版暂时无法回答这个问题。你可以问我的基本介绍、兴趣、网站或联系方式；其他问题欢迎通过邮件联系本人。' : 'This demo cannot answer that yet. Try asking about my background, interests, website, or contact details. For other questions, please email me.';
+ let history: {role:string;content:string}[] = [];
+ let busy=false;
+ let visitorId: string;
+ try { visitorId=localStorage.getItem('twin-visitor') || crypto.randomUUID(); localStorage.setItem('twin-visitor',visitorId); }
+ catch { visitorId=crypto.randomUUID(); }
+ const errors: Record<string,string[]>={quota:['今日或本月额度已用完，请稍后再来。','Daily or monthly quota reached. Please come back later.'],cooldown:['请间隔 10 秒后再发送。','Please wait 10 seconds before sending again.'],disabled:['分身暂时休息中。','The twin is currently paused.'],invalid:['请输入不超过 300 字符的问题。','Please enter a question of up to 300 characters.']};
+ async function send(text:string){
+  text=text.trim();if(busy||!text)return;
+  if(text.length>300){status.textContent=errors.invalid[zh?0:1];return;}
+  busy=true;document.querySelectorAll<HTMLButtonElement>('button').forEach(b=>b.disabled=true);
+  status.textContent=zh?'正在回复……':'Thinking…';
+  try{
+   const root=import.meta.env.PUBLIC_SUPABASE_URL?.replace(/\/$/,'');
+   if(!root)throw Error('unavailable');
+   const response=await fetch(root+'/functions/v1/twin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({visitorId,question:text,history}),signal:AbortSignal.timeout(35000)});
+   const data=await response.json();if(!response.ok)throw Error(data.code||'unavailable');
+   if(typeof data.answer!=='string')throw Error('unavailable');
+   log.querySelector('.welcome')?.remove();
+   for(const [name,content] of [[zh?'你':'You',text],['Mascott · AI',data.answer]]){const p=document.createElement('p');const strong=document.createElement('strong');strong.textContent=name+': ';p.append(strong,document.createTextNode(content));log.append(p);}
+   history=[...history,{role:'user',content:text},{role:'assistant',content:data.answer.slice(0,1000)}].slice(-4);
+   input.value='';log.scrollTop=log.scrollHeight;
+   status.textContent=(zh?`本浏览器今日剩余 ${data.remaining} 次；仍受网络和全站额度限制。`:`${data.remaining} browser requests left today; network and site caps apply.`)+(data.truncated?(zh?' 回答已达到长度上限。':' Reply reached the length limit.'):'');
+  }catch(error){const code=error instanceof Error?error.message:'unavailable';status.textContent=errors[code]?.[zh?0:1]||(zh?'暂时无法回复，输入已保留。请稍后重试；已发起的模型请求可能仍计入额度。':'Temporarily unavailable. Your input is preserved. An attempted model request may still count toward your quota.');input.value=text;}
+  finally{busy=false;document.querySelectorAll<HTMLButtonElement>('button').forEach(b=>b.disabled=false);input.focus();}
  }
- function send(text: string) {
-  text = text.trim(); if (!text) return;
-  log.querySelector('.welcome')?.remove();
-  for (const [name, content] of [[zh ? '你' : 'You', text], [zh ? 'Mascott · 演示' : 'Mascott · Demo', reply(text)]]) {
-   const p = document.createElement('p'); const strong = document.createElement('strong'); strong.textContent = name + ': '; p.append(strong, document.createTextNode(content)); log.append(p);
-  }
-  input.value = ''; log.scrollTop = log.scrollHeight; input.focus();
- }
- document.querySelector('#chat')?.addEventListener('submit', e => { e.preventDefault(); send(input.value); });
- document.querySelectorAll<HTMLButtonElement>('[data-topic]').forEach(b => b.addEventListener('click', () => send(b.dataset.topic!)));
- document.querySelector('#clear')?.addEventListener('click', () => { log.innerHTML = greeting; input.value = ''; input.focus(); });
+ document.querySelector('#chat')?.addEventListener('submit',e=>{e.preventDefault();void send(input.value);});
+ document.querySelectorAll<HTMLButtonElement>('[data-topic]').forEach(b=>b.addEventListener('click',()=>void send(b.dataset.topic!)));
+ document.querySelector('#clear')?.addEventListener('click',()=>{if(busy)return;history=[];log.innerHTML=greeting;input.value='';status.textContent=zh?'对话已清空，额度不会重置。':'Chat cleared. Quota is unchanged.';input.focus();});
 </script>
 <style>
 :global(body){margin:0;background:#f3f3f1;color:#171717;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.7}main{max-width:760px;margin:auto;padding:40px 24px 72px}nav,footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}a{color:inherit;text-underline-offset:4px}header{margin:64px 0 32px}h1{font-size:clamp(30px,5vw,46px);font-weight:500;line-height:1.3}.eyebrow{font-size:12px;letter-spacing:.12em;color:#315e8c}header p,footer{color:#666}button,input{font:inherit}button{cursor:pointer;border:1px solid #ccc;background:transparent;color:inherit;padding:8px 14px;border-radius:3px}button:hover{border-color:#315e8c;color:#315e8c}:focus-visible{outline:2px solid #315e8c;outline-offset:3px}.topics{display:flex;flex-wrap:wrap;gap:8px}#conversation{margin:24px 0;padding:16px;border-block:1px solid #d2d2cf;min-height:180px;max-height:400px;overflow:auto;overflow-wrap:anywhere}.input-row{display:flex;gap:12px}input{min-width:0;flex:1;border:1px solid #bbb;background:#fff;padding:10px;border-radius:3px}label{display:block;margin-bottom:8px}footer{font-size:12px;margin-top:24px;align-items:center}@media(max-width:480px){main{padding:24px 16px}header{margin-top:40px}.topics button{font-size:14px}}

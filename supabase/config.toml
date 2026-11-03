@@ -1,0 +1,4 @@
+project_id = "mascott"
+
+[functions.twin]
+verify_jwt = false

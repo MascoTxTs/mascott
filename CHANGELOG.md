@@ -61,3 +61,14 @@ After restarting the Astro development server, the feedback submission worked su
 - Added Chinese notes content, list/detail routes and feedback page; kept Chinese navigation within /zh/.
 - Added standalone bilingual digital-twin demo pages with preset answers, suggested questions and clear-chat action. No AI API or message storage.
 - Added small homepage links to the demo and fixed the English alias base path.
+
+## 2026-11-02 — DeepSeek integration
+
+- Added approved public persona context and a bounded DeepSeek Flash Edge Function (thinking disabled, no tools).
+- Added atomic browser/IP/day/month quotas, HMAC identities and an emergency stop.
+- Connected bilingual twin UI with bounded history, errors and quota messages. Backend must be deployed before frontend release.
+
+## 2026-11-03
+
+- Verified live DeepSeek Flash response after owner updated API secret; deployed bounded anonymous twin backend.
+- Release includes Chinese/English real AI UI, 2-turn context, 300-character questions and 512-token outputs; server quotas remain 10/browser/day, 20/IP/day, 100/site/day and 1000/site/month.

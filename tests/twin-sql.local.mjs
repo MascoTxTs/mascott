@@ -1,0 +1,12 @@
+import {PGlite} from '../.private-twin/test-runtime/node_modules/@electric-sql/pglite/dist/index.js';
+import fs from 'node:fs';import assert from 'node:assert/strict';
+const db=new PGlite();await db.exec('create role anon; create role authenticated; create role service_role;');await db.exec(fs.readFileSync('supabase/migrations/202611020001_twin_quota.sql','utf8'));
+const b='a'.repeat(64),ip='b'.repeat(64);const reserve=async(x=b,y=ip)=>(await db.query('select public.reserve_twin_quota($1,$2) q',[x,y])).rows[0].q;
+assert.equal((await reserve()).remaining,9);assert.equal((await reserve()).code,'cooldown');
+await db.exec("update public.twin_usage set last_at=now()-interval '11 seconds'");
+const racing=await Promise.all(Array.from({length:10},()=>reserve()));assert.equal(racing.filter(x=>x.allowed).length,1);
+await db.exec("update public.twin_usage set used=10,last_at=now()-interval '11 seconds' where bucket like 'browser:%'");assert.equal((await reserve()).code,'quota');
+await db.exec("update public.twin_usage set used=100 where bucket='global-day'");assert.equal((await reserve('c'.repeat(64),'d'.repeat(64))).code,'quota');
+await db.exec("update public.twin_usage set used=0; update public.twin_usage set used=1000 where bucket='global-month'");assert.equal((await reserve('c'.repeat(64),'d'.repeat(64))).code,'quota');
+await db.exec('update public.twin_control set enabled=false');assert.equal((await reserve()).code,'disabled');
+await db.exec('set role anon');await assert.rejects(()=>reserve());await assert.rejects(()=>db.query('select * from public.twin_usage'));await db.close();console.log('PASS SQL: cooldown, concurrent reservations, browser/global/day/month caps, emergency stop and anon denial');
